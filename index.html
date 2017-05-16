@@ -1,0 +1,164 @@
+ <html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+  <script src="https://cdn.rawgit.com/Gmousse/dataframe-js/master/dist/dataframe.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!--Data Table-->
+  <script type="text/javascript" src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+  <!--Export table button CSS-->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
+  <!--moment.js for time-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <!--chart js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+  <!--custom js-->
+  <script src="js/selectdata.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/filtercolumns.js"></script>
+  <script src="js/filterrows.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/makechart.js"></script>
+  <!--dataset classes js-->
+  <script src="js/data.js"></script>
+  <script src="js/loaddatasetfactory.js"></script>
+  <script src="js/employeesalary.js"></script>
+  <script src="js/payment.js"></script>
+  <script src="js/budget.js"></script>
+  <script src="js/contract.js"></script>
+  <script src="js/ordinance.js"></script>
+  <!--chart and stats classes js-->
+  <script src="js/setcharttype.js"></script>
+  <script src="js/superchart.js"></script>
+  <script src="js/stackedchart.js"></script>
+  <script src="js/piechart.js"></script>
+  <script src="js/linechart.js"></script>
+  <script src="js/polarareachart.js"></script>
+  <script src="js/doughnutchart.js"></script>
+  <script src="js/plot.js"></script>
+  <script src="js/barchart.js"></script>
+  <script src="js/verticalbarchart.js"></script>
+  <script src="js/horizontalbarchart.js"></script>
+  <script src="js/chartstrategy.js"></script>
+  <script src="js/showchart.js"></script>
+  <script src="js/statisticalmetrices.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Finance Dashbord - Team 19</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 ">
+        <div class="dropdown1">
+          <select id="dataSetDropdownMenu" onChange="import_data()">
+                      <option value="" disabled="disabled" selected="selected">- Please select a Dataset -</option>
+                      <option href="#" value="employeesalary.csv">Employee Salary</option>
+                      <option href="#" value="budget.csv">State Budget</option>
+                      <option href="#" value="contract.csv">State Contracts</option>
+                      <option href="#" value="payment.csv">State Payments</option>
+                      <option href="#" value="ordinance.csv">Ordinance Violation Fines</option>
+                    </select>
+        </div>
+        <div style="margin-top:20px"></div>
+        <div id="showDataset">
+          <table cellspacing="0" border="2" id="table">
+          </table>
+        </div>
+        <div style="margin-top:20px"></div>
+        <div class="dropdown2">
+          <select id="chartTypeDropdownMenu" onChange="setChartType()" style="display:none">
+                    <option value="" disabled="disabled" selected="selected">- Please select a Chart Type -</option>
+                    <option href="#" value="Vertical Bar Chart">Vertical Bar Chart</option>
+                    <option href="#" value="Horizontal Bar Chart">Horizontal Bar Chart</option>
+                    <option href="#" value="Pie Chart">Pie Chart</option>
+                    <option href="#" value="Line Chart">Line Chart</option>
+                    <option href="#" value="Stacked Chart">Stacked Chart</option>
+                    <option href="#" value="Polar Area Chart">Polar Area Chart</option>
+                    <option href="#" value="Doughnut Chart">Doughnut Chart</option>
+                  </select>
+          <div id="showcharttype">
+            <p class="h6" id="chartTypeSelected"></p>
+          </div>
+        </div>
+        <div style="margin-top:20px"></div>
+        <div class="dropdown3">
+          <select id="filtercolumns" onChange="showFilterRows()" style="display:none">
+                    <option value="" disabled="disabled" selected="selected">- Please select a column to filter -</option>
+                  </select>
+          <div style="margin-top:5px"></div>
+          <div class="columnfiltertype" id="columnfiltertype" style="display:none">
+            <p class="h5">Select columns to view: (deafaults to all values)</p>
+            <div class="checkbox" id="colcbsdiv">
+            </div>
+            <div class="checkbox" id="colcbsdivyear">
+            </div>
+            <div class="checkbox" id="colcbsdivmonth">
+            </div>
+          </div>
+
+          <div style="margin-top:10px"></div>
+          <select id="filtercstackolumns" onChange="showstackrows()" style="display:none">
+                    <option value="" disabled="disabled" selected="selected">- Please select a stack column to filter -</option>
+                  </select>
+          <div style="margin-top:5px"></div>
+          <div class="columnstackiltertype" id="columnstackfiltertype" style="display:none">
+            <p class="h5">Select columns to view: (deafaults to all)</p>
+          </div>
+
+          <div style="margin-top:10px"></div>
+          <select id="filterrows" onChange="showRowRange()" style="display:none">
+                  <option value="" disabled="disabled" selected="selected">- Please select a rows -</option>
+                </select>
+          <div style="margin-top:10px"></div>
+          <select id="rowfiltertype" style="display:none" onchange="checksumsel()">
+                <option value="" disabled="disabled" selected="selected">- Please select a operator -</option>
+                <option value="gt">Greater Than (Range)</option>
+                <option value="lt">Less Than (Range)</option>
+                <option value="eq">Equal to (Range)</option>
+                <option value="sum">Total Column Value (Sum)</option>
+              </select>
+          <input type="number" id="rowfilterval" placeholder="enter value to filter" style="display:none">
+        </div>
+        <div style="margin-top:10px"></div>
+        <div class="checkboxstats" id="statscbs" style="display:none">
+          <p class="h5">Select stats to view: </p>
+          <input type="checkbox" id="cbsmin" name="statsval" value="min">
+          <label for="cbsmin">Minimum</label>
+          <input type="checkbox" id="cbsmax" name="statsval" value="max">
+          <label for="cbsmax">Maximum</label>
+          <input type="checkbox" id="cbsavg" name="statsval" value="avg">
+          <label for="cbsavg">Average</label>
+          <input type="checkbox" id="cbssd" name="statsval" value="sd">
+          <label for="cbssd">Standard Deviation</label>
+          <input type="checkbox" id="cbsc" name="statsval" value="count">
+          <label for="cbsc">Count</label>
+        </div>
+        <div style="margin-top:20px"></div>
+        <button onclick="showChart()" id="graphshowbutton" style="display:none">Show Graph</button>
+        <div class="chart-box" id="chartdiv">
+        </div>
+        <div style="margin-top:20px"></div>
+        <div class="showstatsdata" id="showstats" style="display:none">
+          <p class="h5">Stats for current chart: </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
